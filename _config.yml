@@ -1,28 +1,32 @@
-# Site settings
+# ==========================================
+# KONFIGURASI UTAMA SUHAA.ID
+# ==========================================
 title: "Suhaa.id"
-description: "Blog pribadi untuk berbagi pemikiran tentang hukum, politik, dan jurnal rasa. Santai dan profesional untuk semua orang."
-url: "https://priafahrian60-lgtm.github.io"
-baseurl: "/suhaa99.github.io"
+email: "anda@email.com"
+description: >- # Deskripsi untuk Google
+  Ruang refleksi pribadi tentang hukum, dinamika politik, 
+  dan jurnal rasa sehari-hari.
 author: "Suhaa"
 
-# Build settings
-markdown: kramdown
-highlighter: rouge
-theme: minima
+# ==========================================
+# PENGATURAN ALAMAT (JANGAN SALAH DISINI)
+# ==========================================
+url: "https://priafahrian60-lgtm.github.io"
+baseurl: "/suhaa99.github.io" 
 
-# Plugins
+# ==========================================
+# TEKNIS
+# ==========================================
+markdown: kramdown
+theme: minima
 plugins:
-  - jekyll-feed
-  - jekyll-sitemap
   - jekyll-seo-tag
 
-# Collections
+# Format Link Tulisan (Tahun/Bulan/Judul)
 collections:
   posts:
-    output: true
-    permalink: /:categories/:title/
+    permalink: /:year/:month/:day/:title/
 
-# Exclude files
 exclude:
   - Gemfile
   - Gemfile.lock
