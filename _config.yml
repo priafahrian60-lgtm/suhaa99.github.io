@@ -1,16 +1,28 @@
-# _config.yml
-title: "suhaa.id"
-email: priafahrian60@gmail.com
-description: >- # Deskripsi ini akan muncul di Google
-  Blog pribadi yang membahas perspektif hukum, dinamika politik,
-  dan catatan perasaan sehari-hari.
-baseurl: "" # Biarkan kosong jika menggunakan username.github.io
-url: "https://username-anda.github.io" 
-twitter_username: username_twitter
-github_username: username_github
+# Site settings
+title: "Suhaa.id"
+description: "Blog pribadi untuk berbagi pemikiran tentang hukum, politik, dan jurnal rasa. Santai dan profesional untuk semua orang."
+url: "https://priafahrian60-lgtm.github.io"
+baseurl: "/suhaa99.github.io"
+author: "Suhaa"
 
-# Pengaturan Build
+# Build settings
 markdown: kramdown
+highlighter: rouge
 theme: minima
+
+# Plugins
 plugins:
+  - jekyll-feed
+  - jekyll-sitemap
   - jekyll-seo-tag
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /:categories/:title/
+
+# Exclude files
+exclude:
+  - Gemfile
+  - Gemfile.lock
