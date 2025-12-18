@@ -13,10 +13,130 @@
   <script src="https://cdn.tailwindcss.com"></script>
   
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/styles.css">
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body class="bg-[#F9F9F7] text-gray-800 font-sans flex flex-col min-h-screen">
+<body class="bg-[#F9F9F7] text-gray-800 font-sans flex flex-col min-h-screen transition-colors duration-300" id="body">
 
-  {% include nav.html %}
+  <!-- Enhanced Navbar (Replaces {% include nav.html %}) -->
+  <nav class="bg-[#8D6E63] text-white shadow-lg sticky top-0 z-50 transition-all duration-300" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center max-w-5xl">
+      
+      <!-- Logo/Brand with Shrink Effect -->
+      <a href="{{ site.baseurl }}/" class="text-2xl md:text-3xl font-serif font-bold tracking-wide hover:text-gray-200 transition mb-4 md:mb-0" aria-label="Go to homepage" id="logo">
+        Suhaa.id
+      </a>
+
+      <!-- Search Bar (Hidden on Mobile, Toggleable) -->
+      <div class="hidden md:flex items-center space-x-2 mb-4 md:mb-0">
+        <input type="text" placeholder="Cari artikel..." class="px-3 py-1 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-300" id="search-input">
+        <button class="bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded-md transition" aria-label="Search" id="search-button">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+
+      <!-- Desktop Menu -->
+      <ul class="hidden md:flex space-x-6 items-center text-sm font-medium">
+        <li><a href="{{ site.baseurl }}/" class="hover:text-yellow-200 transition" aria-label="Home">Beranda</a></li>
+        <li><a href="{{ site.baseurl }}/about" class="hover:text-yellow-200 transition" aria-label="About">Tentang</a></li>
+        
+        <!-- Enhanced Dropdown with Submenu -->
+        <li class="relative group cursor-pointer">
+          <span class="flex items-center hover:text-yellow-200 py-2" aria-haspopup="true" aria-expanded="false" role="button" tabindex="0" id="kategori-toggle">
+            Kategori ▾
+          </span>
+          <ul class="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-xl py-2 hidden group-hover:block text-gray-800 z-10 animate-fade-in" role="menu" id="kategori-menu">
+            <li class="px-4 py-2 font-semibold text-[#8D6E63]">Pilih Kategori</li>
+            <li><a href="{{ site.baseurl }}/category/tulisan-rasa" class="block px-4 py-2 hover:bg-[#F5F5F0] hover:text-[#8D6E63] transition" role="menuitem" aria-label="Tulisan Rasa category">☕ Tulisan Rasa</a></li>
+            <li><a href="{{ site.baseurl }}/category/opini" class="block px-4 py-2 hover:bg-[#F5F5F0] hover:text-[#8D6E63] transition" role="menuitem" aria-label="Opini category">🗣️ Opini</a></li>
+            <!-- New Submenu Item -->
+            <li class="relative">
+              <span class="flex items-center px-4 py-2 hover:bg-[#F5F5F0] cursor-pointer" aria-haspopup="true" role="button" tabindex="0" id="sub-toggle">
+                📚 Lainnya ▸
+              </span>
+              <ul class="absolute left-full top-0 mt-0 w-48 bg-white rounded-md shadow-xl py-2 hidden text-gray-800 z-20" id="sub-menu" role="menu">
+                <li><a href="{{ site.baseurl }}/category/tutorial" class="block px-4 py-2 hover:bg-[#F5F5F0] transition" role="menuitem">📖 Tutorial</a></li>
+                <li><a href="{{ site.baseurl }}/category/review" class="block px-4 py-2 hover:bg-[#F5F5F0] transition" role="menuitem">⭐ Review</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+        <!-- User Menu with Login/Logout -->
+        <li class="relative group cursor-pointer">
+          <span class="flex items-center hover:text-yellow-200 py-2" aria-haspopup="true" aria-expanded="false" role="button" tabindex="0" id="user-toggle">
+            <i class="fas fa-user mr-1"></i> Akun ▾
+          </span>
+          <ul class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-xl py-2 hidden group-hover:block text-gray-800 z-10" role="menu" id="user-menu">
+            <li id="login-item"><a href="{{ site.baseurl }}/login" class="block px-4 py-2 hover:bg-[#F5F5F0] transition" role="menuitem">🔑 Masuk</a></li>
+            <li id="logout-item" style="display: none;"><a href="#" class="block px-4 py-2 hover:bg-[#F5F5F0] transition" role="menuitem" id="logout-link">🚪 Keluar</a></li>
+            <li><a href="{{ site.baseurl }}/profile" class="block px-4 py-2 hover:bg-[#F5F5F0] transition" role="menuitem">👤 Profil</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Right Side: Notifications, Dark Mode Toggle -->
+      <div class="flex items-center space-x-4 mb-4 md:mb-0">
+        <!-- Notification Bell with Badge -->
+        <button class="relative hover:text-yellow-200 transition" aria-label="Notifications" id="notif-button">
+          <i class="fas fa-bell"></i>
+          <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1" id="notif-badge">3</span>
+        </button>
+
+        <!-- Dark Mode Toggle -->
+        <button class="hover:text-yellow-200 transition" aria-label="Toggle dark mode" id="dark-mode-toggle">
+          <i class="fas fa-moon" id="dark-icon"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden flex items-center text-white hover:text-yellow-200 transition" aria-label="Toggle mobile menu" aria-expanded="false" id="mobile-menu-button">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Mobile Menu -->
+      <div class="md:hidden flex flex-col space-y-4 mt-4 text-sm font-medium w-full" id="mobile-menu" style="display: none;">
+        <!-- Mobile Search -->
+        <div class="flex items-center space-x-2">
+          <input type="text" placeholder="Cari..." class="flex-1 px-3 py-1 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-300" id="mobile-search-input">
+          <button class="bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded-md transition" aria-label="Search" id="mobile-search-button">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+
+        <a href="{{ site.baseurl }}/" class="block py-2 hover:text-yellow-200 transition">Beranda</a>
+        <a href="{{ site.baseurl }}/about" class="block py-2 hover:text-yellow-200 transition">Tentang</a>
+        
+        <!-- Mobile Kategori with Expandable Submenu -->
+        <div>
+          <span class="flex items-center py-2 cursor-pointer hover:text-yellow-200 transition" aria-haspopup="true" aria-expanded="false" role="button" tabindex="0" id="mobile-kategori-toggle">
+            Kategori ▾
+          </span>
+          <ul class="ml-4 mt-2 space-y-2" id="mobile-kategori-submenu" style="display: none;" role="menu">
+            <li><a href="{{ site.baseurl }}/category/tulisan-rasa" class="block py-2 hover:text-yellow-200 transition">☕ Tulisan Rasa</a></li>
+            <li><a href="{{ site.baseurl }}/category/opini" class="block py-2 hover:text-yellow-200 transition">🗣️ Opini</a></li>
+            <li>
+              <span class="flex items-center py-2 cursor-pointer hover:text-yellow-200 transition" id="mobile-sub-toggle">📚 Lainnya ▸</span>
+              <ul class="ml-4 mt-2 space-y-2" id="mobile-sub-submenu" style="display: none;">
+                <li><a href="{{ site.baseurl }}/category/tutorial" class="block py-2 hover:text-yellow-200 transition">📖 Tutorial</a></li>
+                <li><a href="{{ site.baseurl }}/category/review" class="block py-2 hover:text-yellow-200 transition">⭐ Review</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Mobile User Menu -->
+        <div>
+          <span class="flex items-center py-2 cursor-pointer hover:text-yellow-200 transition" id="mobile-user-toggle">👤 Akun ▾</span>
+          <ul class="ml-4 mt-2 space-y-2" id="mobile-user-submenu" style="display: none;">
+            <li id="mobile-login-item"><a href="{{ site.baseurl }}/login" class="block py-2 hover:text-yellow-200 transition">🔑 Masuk</a></li>
+            <li id="mobile-logout-item" style="display: none;"><a href="#" class="block py-2 hover:text-yellow-200 transition" id="mobile-logout-link">🚪 Keluar</a></li>
+            <li><a href="{{ site.baseurl }}/profile" class="block py-2 hover:text-yellow-200 transition">👤 Profil</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
 
   <main class="container mx-auto px-6 py-10 max-w-4xl flex-grow">
     {{ content }}
@@ -39,5 +159,69 @@
     </div>
   </footer>
 
-</body>
-</html>
+  <!-- JavaScript for Enhanced Functionality -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Elements
+      const navbar = document.getElementById('navbar');
+      const logo = document.getElementById('logo');
+      const searchInput = document.getElementById('search-input');
+      const searchButton = document.getElementById('search-button');
+      const mobileSearchInput = document.getElementById('mobile-search-input');
+      const mobileSearchButton = document.getElementById('mobile-search-button');
+      const subToggle = document.getElementById('sub-toggle');
+      const subMenu = document.getElementById('sub-menu');
+      const logoutLink = document.getElementById('logout-link');
+      const mobileLogoutLink = document.getElementById('mobile-logout-link');
+      const notifButton = document.getElementById('notif-button');
+      const notifBadge = document.getElementById('notif-badge');
+      const darkModeToggle = document.getElementById('dark-mode-toggle');
+      const darkIcon = document.getElementById('dark-icon');
+      const body = document.getElementById('body');
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileKategoriToggle = document.getElementById('mobile-kategori-toggle');
+      const mobileKategoriSubmenu = document.getElementById('mobile-kategori-submenu');
+      const mobileSubToggle = document.getElementById('mobile-sub-toggle');
+      const mobileSubSubmenu = document.getElementById('mobile-sub-submenu');
+      const mobileUserToggle = document.getElementById('mobile-user-toggle');
+      const mobileUserSubmenu = document.getElementById('mobile-user-submenu');
+
+      // Shrink Navbar on Scroll
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+          navbar.classList.add('py-2');
+          logo.classList.remove('text-3xl');
+          logo.classList.add('text-2xl');
+        } else {
+          navbar.classList.remove('py-2');
+          logo.classList.remove('text-2xl');
+          logo.classList.add('text-3xl');
+        }
+      });
+
+      // Search Functionality (Simple Alert for Demo - Replace with actual search logic)
+      function handleSearch(query) {
+        if (query) {
+          // Example: Redirect to search page or filter content
+          window.location.href = '{{ site.baseurl }}/search?q=' + encodeURIComponent(query);
+        }
+      }
+      if (searchButton) searchButton.addEventListener('click', () => handleSearch(searchInput.value));
+      if (mobileSearchButton) mobileSearchButton.addEventListener('click', () => handleSearch(mobileSearchInput.value));
+      if (searchInput) searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSearch(searchInput.value); });
+      if (mobileSearchInput) mobileSearchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSearch(mobileSearchInput.value); });
+
+      // Submenu Toggle for Desktop
+      if (subToggle && subMenu) {
+        subToggle.addEventListener('mouseenter', () => subMenu.classList.remove('hidden'));
+        subToggle.addEventListener('mouseleave', () => subMenu.classList.add('hidden'));
+      }
+
+      // User Login Simulation (Toggle Login/Logout - Replace with real auth)
+      let isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'; // Persist state
+      function toggleLogin() {
+        isLoggedIn = !isLoggedIn;
+        localStorage.setItem('isLoggedIn', isLoggedIn);
+        updateLoginUI();
+        alert(isLoggedIn ? 'Berhasil masuk!' : 'Berhasil keluar!');
