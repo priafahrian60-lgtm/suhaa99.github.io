@@ -1,14 +1,19 @@
-/* Mengatur font agar lebih spesifik */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Palet Warna Suhaa.id */
+.text-brown-600 { color: #8D6E63; }
+.text-brown-800 { color: #5D4037; }
+.bg-brown-50 { background-color: #EFEBE9; }
+.bg-brown-100 { background-color: #D7CCC8; }
+.bg-brown-200 { background-color: #BCAAA4; }
+
+/* Font Setup */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Merriweather', serif;
 }
 
 body {
     font-family: 'Inter', sans-serif;
-}
-
-/* Memastikan warna teks tidak hitam pekat (Pitch Black) */
-p {
-    color: #374151; /* Cool Gray 700 */
-    line-height: 1.8; /* Jarak antar baris agar enak dibaca */
 }
