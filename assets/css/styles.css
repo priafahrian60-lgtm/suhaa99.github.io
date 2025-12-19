@@ -6,16 +6,19 @@
   <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
   {% seo %}
   
+  <!-- Preconnect untuk Font dan CDN -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   
+  <!-- Font Awesome dan Animate.css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
+  <!-- Tailwind Config untuk Tema Kustom -->
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -34,85 +37,147 @@
               600: '#6D4C41',
               800: '#5D4037',
             }
-          }
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.5s ease-in-out',
+            'slide-up': 'slideUp 0.4s ease-out',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(20px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' },
+            },
+          },
         }
       }
     }
   </script>
 
+  <!-- Inline Styles dengan Layer Tailwind -->
   <style type="text/tailwindcss">
     @layer base {
-      /* Setting Dasar */
+      /* Setting Dasar dengan Smooth Scroll */
       html { scroll-behavior: smooth; }
-      body { @apply bg-[#F9F9F7] text-gray-800 transition-colors duration-300; }
+      body { @apply bg-[#F9F9F7] text-gray-800 transition-all duration-500; }
       
-      /* Dark Mode Base */
+      /* Dark Mode Base yang Ditingkatkan */
       .dark body { @apply bg-gray-900 text-gray-100; }
       
-      /* Typography Headings */
+      /* Typography Headings yang Lebih Elegan */
       h1, h2, h3, h4, h5, h6 {
-        @apply font-serif font-bold text-brown-800 mb-3;
+        @apply font-serif font-bold text-brown-800 mb-3 leading-tight;
       }
       .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
         @apply text-gray-100;
       }
 
-      /* Styling Artikel Blog */
+      /* Styling Artikel Blog yang Ditingkatkan */
       article a {
-        @apply text-brown-600 underline decoration-2 underline-offset-2 transition-colors;
+        @apply text-brown-600 underline decoration-2 underline-offset-2 transition-all duration-300;
       }
       article a:hover {
-        @apply text-brown-800 bg-brown-50;
+        @apply text-brown-800 bg-brown-50 px-1 rounded;
       }
       .dark article a { @apply text-yellow-400; }
       .dark article a:hover { @apply text-yellow-300 bg-transparent; }
 
       article blockquote {
-        @apply border-l-4 border-brown-400 pl-4 py-2 my-6 italic text-brown-800 bg-brown-50/50 rounded-r-lg;
+        @apply border-l-4 border-brown-400 pl-4 py-2 my-6 italic text-brown-800 bg-brown-50/50 rounded-r-lg shadow-sm;
       }
       .dark article blockquote {
         @apply border-yellow-500 text-gray-200 bg-gray-800;
       }
       
-      article ul { @apply list-disc ml-6 mb-4; }
-      article ol { @apply list-decimal ml-6 mb-4; }
+      article ul { @apply list-disc ml-6 mb-4 space-y-1; }
+      article ol { @apply list-decimal ml-6 mb-4 space-y-1; }
       article li { @apply mb-2; }
+
+      /* Code Blocks */
+      article code {
+        @apply bg-gray-100 px-1 py-0.5 rounded text-sm font-mono;
+      }
+      .dark article code {
+        @apply bg-gray-800 text-yellow-300;
+      }
     }
 
     @layer components {
-      /* Tombol */
+      /* Tombol yang Ditingkatkan */
       .btn-primary {
-        @apply bg-brown-600 text-white px-4 py-2 rounded-md font-medium transition shadow-sm hover:bg-brown-800 hover:shadow-md;
+        @apply bg-brown-600 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-sm hover:bg-brown-800 hover:shadow-lg hover:scale-105;
+      }
+      .btn-secondary {
+        @apply bg-gray-200 text-gray-800 px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-gray-300 hover:shadow-md;
+      }
+      .dark .btn-secondary {
+        @apply bg-gray-700 text-gray-200 hover:bg-gray-600;
       }
       
-      /* Input Field */
+      /* Input Field yang Lebih Stylish */
       .input-field {
-        @apply w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-brown-400 focus:outline-none transition;
+        @apply w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brown-400 focus:outline-none transition-all duration-300 shadow-sm;
       }
       .dark .input-field {
         @apply bg-gray-700 border-gray-600 text-white focus:ring-yellow-400;
       }
 
-      /* Navbar Shrink Effect Class */
+      /* Navbar Shrink Effect Class yang Ditingkatkan */
       .navbar-shrink {
-        @apply py-2 bg-brown-600/95 backdrop-blur-md shadow-lg !important;
+        @apply py-2 bg-brown-600/95 backdrop-blur-md shadow-xl !important;
       }
       .dark .navbar-shrink {
         @apply bg-gray-800/95 !important;
       }
+
+      /* Card untuk Artikel */
+      .card {
+        @apply bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mb-6 border border-brown-200 dark:border-gray-700 transition-all duration-300 hover:shadow-lg;
+      }
+      .card h3 {
+        @apply text-brown-800 dark:text-gray-200 font-semibold;
+      }
+      .card p {
+        @apply text-gray-700 dark:text-gray-300;
+      }
+
+      /* Breadcrumb */
+      .breadcrumb {
+        @apply text-sm text-gray-600 dark:text-gray-400 mb-4;
+      }
+      .breadcrumb a {
+        @apply hover:text-brown-600 dark:hover:text-yellow-400;
+      }
     }
 
     @layer utilities {
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar { width: 8px; }
-      ::-webkit-scrollbar-track { @apply bg-gray-100; }
-      ::-webkit-scrollbar-thumb { @apply bg-brown-200 rounded-full; }
-      ::-webkit-scrollbar-thumb:hover { @apply bg-brown-400; }
-      .dark ::-webkit-scrollbar-track { @apply bg-gray-800; }
-      .dark ::-webkit-scrollbar-thumb { @apply bg-gray-600; }
+      /* Custom Scrollbar yang Ditingkatkan */
+      ::-webkit-scrollbar { width: 10px; }
+      ::-webkit-scrollbar-track { @apply bg-gray-100 dark:bg-gray-800; }
+      ::-webkit-scrollbar-thumb { @apply bg-brown-200 dark:bg-gray-600 rounded-full hover:bg-brown-400 dark:hover:bg-gray-500; }
+
+      /* Back-to-Top Button */
+      .back-to-top {
+        @apply fixed bottom-6 right-6 bg-brown-600 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:bg-brown-800 hover:scale-110 z-40;
+      }
+      .dark .back-to-top {
+        @apply bg-gray-700 hover:bg-gray-600;
+      }
+
+      /* Loading Screen */
+      .loading-screen {
+        @apply fixed inset-0 bg-white dark:bg-gray-900 flex items-center justify-center z-50 transition-opacity duration-500;
+      }
+      .loading-screen.hidden {
+        @apply opacity-0 pointer-events-none;
+      }
     }
   </style>
 
+  <!-- Script untuk Dark Mode Otomatis -->
   <script>
     if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         document.documentElement.classList.add('dark');
@@ -124,23 +189,60 @@
 
 <body class="flex flex-col min-h-screen" id="body">
 
-  {% include navbar.html %}
+  <!-- Loading Screen (Fitur Baru) -->
+  <div class="loading-screen" id="loading-screen">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-brown-600"></div>
+  </div>
 
-  <main class="container mx-auto px-6 py-10 max-w-4xl flex-grow animate__animated animate__fadeIn">
-    {{ content }}
-  </main>
-
-  <footer class="bg-[#EBEBE0] dark:bg-gray-800 text-center py-12 mt-auto border-t border-[#D6D6C2] dark:border-gray-700 transition-colors duration-300">
-    <div class="container mx-auto px-4">
-      <h4 class="font-serif text-[#5D4037] dark:text-gray-200 font-bold text-2xl mb-2 tracking-wide">Suhaa.id</h4>
-      <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 italic">Menulis untuk merawat kewarasan.</p>
+  <!-- Navbar yang Diintegrasikan (Dari Kode Sebelumnya, Tanpa Duplikasi) -->
+  <nav class="bg-brown-600 dark:bg-gray-800 text-white shadow-lg sticky top-0 z-50 transition-all duration-300" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center max-w-5xl">
       
-      <div class="flex justify-center space-x-4">
-        <a href="#" class="text-gray-400 hover:text-brown-600 dark:hover:text-yellow-400 transition"><i class="fab fa-instagram text-xl"></i></a>
-        <a href="#" class="text-gray-400 hover:text-brown-600 dark:hover:text-yellow-400 transition"><i class="fab fa-twitter text-xl"></i></a>
-      </div>
-    </div>
-  </footer>
+      <!-- Logo/Brand -->
+      <a href="{{ site.baseurl }}/" class="text-2xl md:text-3xl font-serif font-bold tracking-wide hover:text-yellow-200 transition mb-4 md:mb-0" aria-label="Go to homepage" id="logo">
+        Suhaa.id
+      </a>
 
-</body>
-</html>
+      <!-- Search Bar -->
+      <div class="hidden md:flex items-center space-x-2 mb-4 md:mb-0">
+        <input type="text" placeholder="Cari artikel..." class="input-field w-64" id="search-input">
+        <button class="bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded-md transition" aria-label="Search" id="search-button">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+
+      <!-- Desktop Menu (Satu Instance per Item) -->
+      <ul class="hidden md:flex space-x-6 items-center text-sm font-medium">
+        <li><a href="{{ site.baseurl }}/" class="hover:text-yellow-200 transition" aria-label="Home">Beranda</a></li>
+        <li><a href="{{ site.baseurl }}/about" class="hover:text-yellow-200 transition" aria-label="About">Tentang</a></li>
+        
+        <!-- Dropdown Kategori -->
+        <li class="relative group cursor-pointer">
+          <span class="flex items-center hover:text-yellow-200 py-2" aria-haspopup="true" aria-expanded="false" role="button" tabindex="0" id="kategori-toggle">
+            Kategori ▾
+          </span>
+          <ul class="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-700 rounded-md shadow-xl py-2 hidden group-hover:block text-gray-800 dark:text-gray-200 z-10 animate-fade-in" role="menu" id="kategori-menu">
+            <li class="px-4 py-2 font-semibold text-brown-600 dark:text-yellow-300">Pilih Kategori</li>
+            <li><a href="{{ site.baseurl }}/category/tulisan-rasa" class="block px-4 py-2 hover:bg-brown-50 dark:hover:bg-gray-600 transition" role="menuitem">☕ Tulisan Rasa</a></li>
+            <li><a href="{{ site.baseurl }}/category/opini" class="block px-4 py-2 hover:bg-brown-50 dark:hover:bg-gray-600 transition" role="menuitem">🗣️ Opini</a></li>
+            <li class="relative">
+              <span class="flex items-center px-4 py-2 hover:bg-brown-50 dark:hover:bg-gray-600 cursor-pointer" aria-haspopup="true" role="button" tabindex="0" id="sub-toggle">
+                📚 Lainnya ▸
+              </span>
+              <ul class="absolute left-full top-0 mt-0 w-48 bg-white dark:bg-gray-700 rounded-md shadow-xl py-2 hidden text-gray-800 dark:text-gray-200 z-20" id="sub-menu" role="menu">
+                <li><a href="{{ site.baseurl }}/category/tutorial" class="block px-4 py-2 hover:bg-brown-50 dark:hover:bg-gray-600 transition" role="menuitem">📖 Tutorial</a></li>
+                <li><a href="{{ site.baseurl }}/category/review" class="block px-4 py-2 hover:bg-brown-50 dark:hover:bg-gray-600 transition" role="menuitem">⭐ Review</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+        <!-- User Menu -->
+        <li class="relative group cursor-pointer">
+          <span class="flex items-center hover:text-yellow-200 py-2" aria-haspopup="true" aria-expanded="false" role="button" tabindex="0" id="user-toggle">
+            <i class="fas fa-user mr-1"></i> Akun ▾
+          </span>
+          <ul class="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-700 rounded-md shadow-xl py-2 hidden group-hover:block text-gray-800 dark:text-gray-200 z-10" role="menu" id="user-menu">
+            <li id="login-item"><a href="{{ site.baseurl }}/login" class="block px-4 py-2 hover:bg-brown-50 dark:hover:bg-gray-600 transition" role="menuitem">🔑 Masuk</a></li>
+            <li id="logout-item" style="display: none;"><a href="#" class="block px-4 py-2 hover:bg-brown-50 dark:hover:bg-gray-600 transition" role="menuitem" id="logout-link">🚪 Keluar</a></li>
+            <li><a href="{{ site.baseurl }}/profile" class="block px
